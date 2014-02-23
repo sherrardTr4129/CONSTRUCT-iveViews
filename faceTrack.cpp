@@ -38,21 +38,23 @@ Mat centerFace()
 }
 
 bool read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';') {
-    std::ifstream file(filename.c_str(), ifstream::in);
-    if (!file) {
-        string error_message = "No valid input file was given, please check the given filename.";
-        return false;
+  std::ifstream file(filename.c_str(), ifstream::in);
+  if (!file) {
+    return false;
+  }
+  string line, path, classlabel;
+  while (getline(file, line)) 
+  {
+    stringstream liness(line);
+    getline(liness, path, separator);
+    getline(liness, classlabel);
+    if(!path.empty() && !classlabel.empty())
+    {
+        images.push_back(imread(path, 0));
+        labels.push_back(atoi(classlabel.c_str()));
+	
     }
-    string line, path, classlabel;
-    while (getline(file, line)) {
-        stringstream liness(line);
-        getline(liness, path, separator);
-        getline(liness, classlabel);
-        if(!path.empty() && !classlabel.empty()) {
-            images.push_back(imread(path, 0));
-            labels.push_back(atoi(classlabel.c_str()));
-        }
-    }
+  }
 }
 int predict(Mat Face)
 {
@@ -69,7 +71,12 @@ int main()
 {
   Mat Face = centerFace();
   string fn_csv = "faces.csv";
-  read_csv(fn_csv, images, labels);
+  bool success = read_csv(fn_csv, images, labels);
+  if(!success)
+  {
+    cout << "could not read csv file." << endl;
+    return -1;
+  }
   int label;
   if(images.size() < 1)
   {
