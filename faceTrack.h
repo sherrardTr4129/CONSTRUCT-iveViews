@@ -10,4 +10,6 @@ class faceTrack()
      bool read_csv(const string& filename, vector<Mat>& images, 
 		   vector<int>& labels, char separator = ';');
      int predict(Mat Face);
+     void train();
+     void addNewFace(vector<Mat> newFaces, vector<int> labels);
 };
