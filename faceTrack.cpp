@@ -70,16 +70,3 @@ int predict(Mat Face)
     return predictedLabel;
 }
 
-int main()
-{
-    centerFace();
-    Mat Face = imread("face.pgm",0);
-    string fn_csv = "faces.csv";
-    bool success = read_csv(fn_csv, images, labels);
-    int label;
-    if(images.size() > 1)
-    {
-        label = predict(Face);
-        cout << "subject label "<< label << endl;
-    }
-}
