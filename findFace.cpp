@@ -13,7 +13,7 @@ Mat faceROI;
 
 Mat findFace::getFace(Mat frame)
 {
-  if( !face_cascade.load( face_cascade_name ) ){ printf("--(!)Error loading\n"); return -1; };
+  face_cascade.load( face_cascade_name );
 
   std::vector<Rect> faces;
   Mat frame_gray;

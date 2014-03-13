@@ -4,7 +4,7 @@
 
 using namespace cv;
 
-class findFace()
+class findFace
 {
   public:
     Mat getFace(Mat frame);

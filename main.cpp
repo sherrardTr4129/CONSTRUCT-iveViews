@@ -14,17 +14,11 @@ using namespace cv;
 bool openSuccess = false;
 string videoStreamAddress; 
 VideoCapture cap;
-bool readSuccess = true;
-bool csvRead;
 Mat frame;
 faceTrack facetrack;
-findFace findface;
+findFace findf;
 Mat curFace;
-string initialCsvFile;
-int label;
-vector<Mat> images;
-vector<int> labels;
-
+bool success;
 
 /*
 * Notes:
@@ -39,37 +33,14 @@ int main()
 {
    while(!openSuccess)
    { 
-      cout << "enter a valid camera IP or stream address" << endl;
-      cin >> videoStreamAddress;
-      openSuccess = cap.open(videoStreamAddress);  
-   }
-   csvRead = read_csv(initialCsvFile, images, labels)
-   if(!csvRead)
-   {
-      cout << "could not read " << initialCsvFile << endl;  
-   }
-   if(images.size() > 1)
-   { 
-      facetrack.train(images, labels)
-   }
-   while(readSuccess)
-   {
-      readSuccess = cap.read(frame);
-      curFace = findface.getFace(frame);
-      if(curFace.rows > 3)
-      {
-         label = predict(curFace);
-      }
-      if(label = -1) 
-      {
-         //update model one picture per subject
-         track.addNewFace(curFace, labels.size() + 1, initialCsvFile, 
-		labels.size(), images.size(), "data");
-      }
-      else
-      {
-         //TODO add the new face to the correct subject label, then update model
-      }
-      
+      openSuccess = cap.open(0);  
    }  
+
+   while(waitKey(1) != 'q')
+   {
+     success = cap.read(frame);
+     curFace = findf.getFace(frame);
+     imshow("face", curFace);
+
+   }
 }

@@ -3,7 +3,10 @@
 #include <fstream>
 #include <sstream>
 
-class faceTrack()
+using namespace std;
+using namespace cv;
+
+class faceTrack
 {
   public:
      void centerFace();
